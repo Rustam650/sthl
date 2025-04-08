@@ -210,7 +210,7 @@ export default function StoneDetail() {
                     style={{ objectFit: 'cover' }}
                     className={styles.stoneDetailImage}
                     priority
-                    onClick={() => openFullImage(stone.images[0])}
+                    onClick={() => stone.images && stone.images.length > 0 && openFullImage(stone.images[0])}
                   />
                 ) : stone.image_url ? (
                   <Image 
@@ -220,16 +220,19 @@ export default function StoneDetail() {
                     style={{ objectFit: 'cover' }}
                     className={styles.stoneDetailImage}
                     priority
-                    onClick={() => openFullImage(stone.image_url)}
+                    onClick={() => stone.image_url && openFullImage(stone.image_url)}
                   />
                 ) : (
                   <div className={styles.noDetailImage}>
                     <p>Изображение отсутствует</p>
                   </div>
                 )}
-                <div className={styles.zoomIcon} onClick={() => 
-                  openFullImage(stone.images?.[0] || stone.image_url || '')
-                }>
+                <div className={styles.zoomIcon} onClick={() => {
+                  const imageUrl = stone.images && stone.images.length > 0 
+                    ? stone.images[0] 
+                    : stone.image_url || '';
+                  if (imageUrl) openFullImage(imageUrl);
+                }}>
                   <span>🔍</span>
                 </div>
               </div>
