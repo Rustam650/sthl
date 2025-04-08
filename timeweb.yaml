@@ -1,23 +1,15 @@
 name: sthl
 type: nodejs
-nodejs:
-  version: 18
-  start: npm start
-  build: npm run build
-env:
-  - key: DB_HOST
-    value: 147.45.110.29
-  - key: DB_PORT
-    value: 3306
-  - key: DB_USER
-    value: gen_user
-  - key: DB_PASSWORD
-    value: 9x?T&Lg:Q&W$+X
-  - key: DB_NAME
-    value: default_db
-  - key: JWT_SECRET
-    value: stonehill-admin-secret-key
-  - key: NEXT_PUBLIC_API_URL
-    value: /api
-  - key: NODE_ENV
-    value: production 
+nodeVersion: 18
+startCommand: npm start
+buildCommand: npm run build
+outputDirectory: .next
+variables:
+  DB_HOST: 147.45.110.29
+  DB_PORT: 3306
+  DB_USER: gen_user
+  DB_PASSWORD: 9x?T&Lg:Q&W$+X
+  DB_NAME: default_db
+  JWT_SECRET: stonehill-admin-secret-key
+  NEXT_PUBLIC_API_URL: /api
+  NODE_ENV: production 

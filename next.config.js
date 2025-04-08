@@ -7,6 +7,7 @@ const nextConfig = {
     minimumCacheTTL: 60,
   },
   output: 'standalone',
+  distDir: '.next',
 }
 
 module.exports = nextConfig
