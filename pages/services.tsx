@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import styles from '../styles/Services.module.css';
-import commonStyles from '../styles/Common.module.css';
+import commonStyles from '../styles/common.module.css';
 
 // Список услуг
 const services = [
