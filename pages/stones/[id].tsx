@@ -256,37 +256,31 @@ export default function StoneDetail() {
                   <p className={styles.stonePriceValue}>от {stone.price} ₽/м²</p>
                 </div>
               )}
-              <div style={{ flex: '1' }}></div>
-              <div style={{ 
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
-                gap: '1.5rem',
-                marginBottom: '1.5rem'
-              }}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div className={styles.spacer}></div>
+              <div className={styles.stoneFeatures}>
+                <div className={styles.stoneFeatureItem}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#313131" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 2v20M2 12h20M20 16H4M20 8H4"/>
                   </svg>
-                  <span style={{ fontSize: '10px', color: '#313131', marginTop: '4px' }}>Прочность</span>
+                  <span className={styles.stoneFeatureTitle}>Прочность</span>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div className={styles.stoneFeatureItem}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#313131" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10"/>
                     <polyline points="12 6 12 12 16 14"/>
                   </svg>
-                  <span style={{ fontSize: '10px', color: '#313131', marginTop: '4px' }}>Долговечность</span>
+                  <span className={styles.stoneFeatureTitle}>Долговечность</span>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div className={styles.stoneFeatureItem}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#313131" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 16.8a7.14 7.14 0 0 0 2.24-3.22 7.23 7.23 0 0 0 .46-2.58 7.5 7.5 0 0 0-2.38-5.5 7.23 7.23 0 0 0-5.32-2A7.5 7.5 0 0 0 8.5 6.5a7.23 7.23 0 0 0-2.38 5.5 7.14 7.14 0 0 0 2.7 5.8"/>
                     <path d="M17 17v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1"/>
                   </svg>
-                  <span style={{ fontSize: '10px', color: '#313131', marginTop: '4px' }}>Экологичность</span>
+                  <span className={styles.stoneFeatureTitle}>Экологичность</span>
                 </div>
               </div>
-              <div style={{ flex: '1' }}></div>
-              <div className={styles.stoneActions} style={{ justifyContent: 'flex-start', marginTop: 'auto' }}>
+              <div className={styles.spacer}></div>
+              <div className={styles.stoneActions}>
                 <Link 
                   href="/contact" 
                   className={commonStyles.button + ' ' + commonStyles.buttonPrimary}

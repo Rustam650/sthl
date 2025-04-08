@@ -629,15 +629,10 @@
     text-align: center;
   }
 
-  /* Исправление пустых дивов */
-  div:empty {
-    display: none;
-  }
-
   /* Скрываем информационный блок div для мобильных устройств */
-  div[class*="div"] {
+  /* div[class*="div"] {
     display: none;
-  }
+  } */
 
   .stoneProperties {
     grid-template-columns: repeat(2, 1fr);
@@ -745,9 +740,27 @@
 .stoneFeatureTitle {
   font-weight: 600;
   margin-bottom: 0.25rem;
+  font-size: 10px;
+  color: #313131;
+  margin-top: 4px;
 }
 
 .stoneFeatureText {
   font-size: 0.9rem;
   color: var(--color-text-light);
+}
+
+/* Класс для замены пустых div'ов */
+.spacer {
+  flex: 1;
+  min-height: 10px;
+}
+
+/* Добавляем классы для скрытия элементов */
+.emptyDiv {
+  display: none;
+}
+
+.hiddenDiv {
+  display: none;
 }
