@@ -599,7 +599,7 @@
   }
   
   .hero {
-    padding: 100px 0 60px;
+    padding: 60px 0 40px;
   }
   
   .heroTitle {
@@ -628,7 +628,7 @@
 
 @media (max-width: 576px) {
   .hero {
-    padding: 80px 0 40px;
+    padding: 40px 0 30px;
   }
   
   .heroTitle {
