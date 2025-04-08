@@ -18,6 +18,11 @@ app.prepare().then(() => {
     res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
   });
   
+  // Явная обработка корневого маршрута
+  server.get('/', (req, res) => {
+    return app.render(req, res, '/', req.query);
+  });
+  
   // Инициализация базы данных при старте сервера
   if (process.env.NODE_ENV === 'production') {
     try {

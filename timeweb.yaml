@@ -4,6 +4,8 @@ nodeVersion: 18
 startCommand: npm start
 buildCommand: npm run build
 outputDirectory: .next
+publicDirectory: public
+cleanPublicDirectory: true
 variables:
   DB_HOST: 147.45.110.29
   DB_PORT: 3306
