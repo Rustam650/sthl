@@ -2,10 +2,14 @@ import React from 'react';
 import StoneCard from './StoneCard';
 
 interface Stone {
-  id: string;
+  id: string | number;
   name: string;
   description: string;
-  image: string;
+  image?: string;
+  images?: string[];
+  image_url?: string;
+  price?: string | number;
+  type?: string;
 }
 
 interface StonesListProps {
@@ -22,9 +26,7 @@ const StonesList: React.FC<StonesListProps> = ({ stones }) => {
       {stones.map((stone) => (
         <StoneCard
           key={stone.id}
-          image={stone.image}
-          title={stone.name}
-          description={stone.description}
+          stone={stone}
         />
       ))}
     </div>
