@@ -1,5 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { pool } from '../../../lib/db';
+import { RowDataPacket } from 'mysql2';
+
+interface ServiceRow extends RowDataPacket {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  duration: string;
+}
 
 type Service = {
   id: number;
@@ -23,7 +32,7 @@ export default async function handler(
         return res.status(400).json({ error: 'Некорректный ID услуги' });
       }
       
-      const [services] = await pool.query('SELECT * FROM service WHERE id = ?', [serviceId]);
+      const [services] = await pool.query<ServiceRow[]>('SELECT * FROM service WHERE id = ?', [serviceId]);
       const service = services[0];
       
       if (!service) {

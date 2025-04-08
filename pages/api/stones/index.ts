@@ -1,5 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { pool } from '../../../lib/db';
+import { RowDataPacket } from 'mysql2';
+
+interface StoneRow extends RowDataPacket {
+  id: number;
+  name: string;
+  description: string | null;
+  price: number | null;
+  image_url: string | null;
+  category: string | null;
+  created_at: Date;
+}
 
 type Stone = {
   id: number;
@@ -36,7 +47,7 @@ export default async function handler(
 
     // Проверяем существование таблицы stone
     try {
-      const [tables] = await pool.query('SHOW TABLES');
+      const [tables] = await pool.query<RowDataPacket[]>('SHOW TABLES');
       console.log('[API] Available tables:', tables);
       
       // Проверяем, есть ли таблица stone среди существующих таблиц
@@ -55,7 +66,7 @@ export default async function handler(
     }
 
     // Получение камней из базы данных
-    const [stones] = await pool.query('SELECT * FROM stone');
+    const [stones] = await pool.query<StoneRow[]>('SELECT * FROM stone');
     
     // Преобразуем данные для совместимости с фронтендом
     const formattedStones = stones.map(stone => ({

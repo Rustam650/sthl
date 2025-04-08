@@ -1,5 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { pool } from '../../../lib/db';
+import { RowDataPacket } from 'mysql2';
+
+interface ServiceRow extends RowDataPacket {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  duration: string;
+}
 
 type Service = {
   id: number;
@@ -15,7 +24,7 @@ export default async function handler(
 ) {
   if (req.method === 'GET') {
     try {
-      const [services] = await pool.query('SELECT * FROM service');
+      const [services] = await pool.query<ServiceRow[]>('SELECT * FROM service');
       res.status(200).json(services);
     } catch (error) {
       console.error('Error fetching services:', error);

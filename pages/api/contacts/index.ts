@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { pool } from '../../../lib/db';
+import { ResultSetHeader } from 'mysql2';
 
 type ContactFormData = {
   name: string;
@@ -22,8 +23,10 @@ export default async function handler(
       }
       
       // Сохраняем контактные данные в базу
-      const query = 'INSERT INTO contact (name, email, phone, message, is_read) VALUES (?, ?, ?, ?, ?)';
-      await pool.query(query, [name, email, phone || null, message, false]);
+      const [result] = await pool.query<ResultSetHeader>(
+        'INSERT INTO contact (name, email, phone, message, is_read) VALUES (?, ?, ?, ?, ?)',
+        [name, email, phone || null, message, false]
+      );
       
       res.status(201).json({ 
         success: true, 
