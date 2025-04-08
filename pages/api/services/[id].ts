@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../../lib/prismadb';
+import { pool } from '../../../lib/db';
 
 type Service = {
   id: number;
@@ -23,9 +23,8 @@ export default async function handler(
         return res.status(400).json({ error: 'Некорректный ID услуги' });
       }
       
-      const service = await prisma.service.findUnique({
-        where: { id: serviceId }
-      });
+      const [services] = await pool.query('SELECT * FROM service WHERE id = ?', [serviceId]);
+      const service = services[0];
       
       if (!service) {
         return res.status(404).json({ error: 'Услуга не найдена' });

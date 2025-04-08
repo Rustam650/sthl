@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../../lib/prismadb';
+import { pool } from '../../../lib/db';
 
 type ContactFormData = {
   name: string;
@@ -22,15 +22,8 @@ export default async function handler(
       }
       
       // Сохраняем контактные данные в базу
-      await prisma.contact.create({
-        data: {
-          name,
-          email,
-          phone: phone || null,
-          message,
-          read: false
-        }
-      });
+      const query = 'INSERT INTO contact (name, email, phone, message, is_read) VALUES (?, ?, ?, ?, ?)';
+      await pool.query(query, [name, email, phone || null, message, false]);
       
       res.status(201).json({ 
         success: true, 

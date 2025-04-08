@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../../lib/prismadb';
+import { pool } from '../../../lib/db';
 
 type Stone = {
   id: number;
@@ -25,7 +25,7 @@ export default async function handler(
     
     // Проверяем подключение к базе данных перед выполнением запроса
     try {
-      await prisma.$queryRaw`SELECT 1`;
+      const [result] = await pool.query('SELECT 1');
       console.log('[API] Database connection test successful');
     } catch (connError) {
       console.error('[API] Database connection test failed:', connError);
@@ -36,7 +36,7 @@ export default async function handler(
 
     // Проверяем существование таблицы stone
     try {
-      const tables = await prisma.$queryRaw`SHOW TABLES`;
+      const [tables] = await pool.query('SHOW TABLES');
       console.log('[API] Available tables:', tables);
       
       // Проверяем, есть ли таблица stone среди существующих таблиц
@@ -55,7 +55,7 @@ export default async function handler(
     }
 
     // Получение камней из базы данных
-    const stones = await prisma.stone.findMany();
+    const [stones] = await pool.query('SELECT * FROM stone');
     
     // Преобразуем данные для совместимости с фронтендом
     const formattedStones = stones.map(stone => ({

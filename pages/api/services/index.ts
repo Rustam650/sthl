@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../../lib/prismadb';
+import { pool } from '../../../lib/db';
 
 type Service = {
   id: number;
@@ -15,7 +15,7 @@ export default async function handler(
 ) {
   if (req.method === 'GET') {
     try {
-      const services = await prisma.service.findMany();
+      const [services] = await pool.query('SELECT * FROM service');
       res.status(200).json(services);
     } catch (error) {
       console.error('Error fetching services:', error);

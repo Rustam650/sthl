@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../../lib/prismadb';
 import { pool, dbInitializer } from '../../../lib/db';
 
 export default async function handler(
@@ -14,21 +13,11 @@ export default async function handler(
     // Результаты проверки
     const diagnostics: Record<string, any> = {
       timestamp: new Date().toISOString(),
-      prismaConnection: false,
       mysqlConnection: false,
       tables: {},
       connectionDetails: {},
       recommendations: []
     };
-    
-    // Проверяем подключение через Prisma
-    try {
-      await prisma.$queryRaw`SELECT 1`;
-      diagnostics.prismaConnection = true;
-    } catch (error) {
-      diagnostics.prismaError = error instanceof Error ? error.message : 'Unknown error';
-      diagnostics.recommendations.push('Проверьте настройки подключения в .env файле (DATABASE_URL)');
-    }
     
     // Проверяем подключение через mysql2
     try {
