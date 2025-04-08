@@ -7,6 +7,8 @@ import Layout from '@/components/Layout';
 import styles from '@/styles/Stones.module.css';
 import commonStyles from '@/styles/common.module.css';
 import { StoneApiClient } from '@/lib/client/stone-api.js';
+import Head from 'next/head';
+import StoneCard from '@/components/StoneCard';
 
 // Определение типа для камня, совпадающее с типом в API
 type Stone = {
@@ -19,9 +21,14 @@ type Stone = {
   images?: string[];
   image_url?: string | null;
   category?: string | null;
+  unit?: string;
+  thickness?: string;
+  size?: string;
+  color?: string;
+  origin?: string;
 };
 
-export default function StoneDetail() {
+const StoneDetailPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const [stone, setStone] = useState<Stone | null>(null);
@@ -31,6 +38,39 @@ export default function StoneDetail() {
   const [showFullImage, setShowFullImage] = useState(false);
   const [currentImage, setCurrentImage] = useState('');
 
+  // Данные телефона
+  const phone = '+7 (499) 123-45-67'; // Замените на актуальный номер телефона
+  
+  // Характеристики камня
+  const features = [
+    {
+      icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#313131" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2v20M2 12h20M20 16H4M20 8H4"/>
+            </svg>,
+      title: 'Прочность',
+      text: ''
+    },
+    {
+      icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#313131" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>,
+      title: 'Долговечность',
+      text: ''
+    },
+    {
+      icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#313131" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 16.8a7.14 7.14 0 0 0 2.24-3.22 7.23 7.23 0 0 0 .46-2.58 7.5 7.5 0 0 0-2.38-5.5 7.23 7.23 0 0 0-5.32-2A7.5 7.5 0 0 0 8.5 6.5a7.23 7.23 0 0 0-2.38 5.5 7.14 7.14 0 0 0 2.7 5.8"/>
+              <path d="M17 17v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1"/>
+            </svg>,
+      title: 'Экологичность',
+      text: ''
+    }
+  ];
+  
+  // Похожие камни (можно будет заменить на настоящие данные)
+  const similarStones: Stone[] = [];
+
   useEffect(() => {
     // Загружаем данные только если id определен
     if (!id) return;
@@ -39,7 +79,10 @@ export default function StoneDetail() {
       try {
         console.log(`Fetching details for stone with ID: ${id}`);
         const stoneId = Array.isArray(id) ? id[0] : id;
-        setStone(await StoneApiClient.getStoneById(stoneId as string));
+        const stoneDetails = await StoneApiClient.getStoneById(stoneId as string);
+        if (stoneDetails) {
+          setStone(stoneDetails);
+        }
       } catch (error) {
         console.error('Error fetching stone details:', error);
         
@@ -195,9 +238,8 @@ export default function StoneDetail() {
 
   return (
     <Layout title={`STHL | ${stone.name}`}>
-      {/* Секция с информацией о камне */}
-      <section className={styles.stoneDetailSection}>
-        <div className="container">
+      <div className="container">
+        <div className={styles.stoneDetailSection}>
           <div className={styles.stoneDetailTwoColumn}>
             {/* Колонка с изображением */}
             <div className={styles.stoneImageColumn}>
@@ -237,49 +279,59 @@ export default function StoneDetail() {
                 </div>
               </div>
             </div>
-            
+
             {/* Колонка с описанием */}
-            <div style={{ 
-              flex: '1', 
-              minWidth: '300px',
-              display: 'flex',
-              flexDirection: 'column',
-              height: '450px'
-            }}>
-              <div style={{ marginBottom: '1rem' }}>
-                <h2 className={styles.stoneDetailName} style={{ margin: 0 }}>{stone.name}</h2>
-                {stone.type && <p className={styles.stoneDetailType} style={{ margin: '0.5rem 0 0 0' }}>{stone.type}</p>}
+            <div className={styles.stoneContentColumn}>
+              <div>
+                <div style={{ marginBottom: '0.5rem', position: 'relative' }}>
+                  <h2 className={styles.stoneDetailName}>{stone.name}</h2>
+                  {stone.type && <span className={styles.stoneDetailType}>{stone.type}</span>}
+                </div>
+                {stone.price && (
+                  <div className={styles.stonePriceBlock}>
+                    <h3 className={styles.stoneContentHeading}>Стоимость</h3>
+                    <p className={styles.stonePriceValue}>от {stone.price} ₽/м²</p>
+                  </div>
+                )}
+                
+                <div className={styles.stoneCharacteristics}>
+                  {stone.thickness && (
+                    <div className={styles.stoneProperty}>
+                      <div className={styles.propertyTitle}>Толщина</div>
+                      <div className={styles.propertyValue}>{stone.thickness} мм</div>
+                    </div>
+                  )}
+                  {stone.size && (
+                    <div className={styles.stoneProperty}>
+                      <div className={styles.propertyTitle}>Размер</div>
+                      <div className={styles.propertyValue}>{stone.size}</div>
+                    </div>
+                  )}
+                  {stone.color && (
+                    <div className={styles.stoneProperty}>
+                      <div className={styles.propertyTitle}>Цвет</div>
+                      <div className={styles.propertyValue}>{stone.color}</div>
+                    </div>
+                  )}
+                  {stone.origin && (
+                    <div className={styles.stoneProperty}>
+                      <div className={styles.propertyTitle}>Происхождение</div>
+                      <div className={styles.propertyValue}>{stone.origin}</div>
+                    </div>
+                  )}
+                </div>
+                
+                <div className={styles.stoneFeatures}>
+                  {features.map((feature, index) => (
+                    <div key={index} className={styles.stoneFeatureItem}>
+                      <div className={styles.stoneFeatureIcon}>{feature.icon}</div>
+                      <div className={styles.stoneFeatureTitle}>{feature.title}</div>
+                      <div className={styles.stoneFeatureText}>{feature.text}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              {stone.price && (
-                <div className={styles.stonePriceBlock} style={{ marginBottom: '1.5rem' }}>
-                  <h3 className={styles.stoneContentHeading}>Стоимость</h3>
-                  <p className={styles.stonePriceValue}>от {stone.price} ₽/м²</p>
-                </div>
-              )}
-              <div className={styles.spacer}></div>
-              <div className={styles.stoneFeatures}>
-                <div className={styles.stoneFeatureItem}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#313131" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 2v20M2 12h20M20 16H4M20 8H4"/>
-                  </svg>
-                  <span className={styles.stoneFeatureTitle}>Прочность</span>
-                </div>
-                <div className={styles.stoneFeatureItem}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#313131" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12 6 12 12 16 14"/>
-                  </svg>
-                  <span className={styles.stoneFeatureTitle}>Долговечность</span>
-                </div>
-                <div className={styles.stoneFeatureItem}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#313131" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 16.8a7.14 7.14 0 0 0 2.24-3.22 7.23 7.23 0 0 0 .46-2.58 7.5 7.5 0 0 0-2.38-5.5 7.23 7.23 0 0 0-5.32-2A7.5 7.5 0 0 0 8.5 6.5a7.23 7.23 0 0 0-2.38 5.5 7.14 7.14 0 0 0 2.7 5.8"/>
-                    <path d="M17 17v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1"/>
-                  </svg>
-                  <span className={styles.stoneFeatureTitle}>Экологичность</span>
-                </div>
-              </div>
-              <div className={styles.spacer}></div>
+              
               <div className={styles.stoneActions}>
                 <Link 
                   href="/contact" 
@@ -296,7 +348,8 @@ export default function StoneDetail() {
               </div>
             </div>
           </div>
-          <div className={styles.stoneFullWidthSection} style={{ marginTop: '2rem' }}>
+          
+          <div className={styles.stoneFullWidthSection}>
             <h3 className={styles.stoneContentHeading}>Описание</h3>
             <div className={styles.stoneDetailDescription}>
               {stone.description ? (
@@ -315,6 +368,7 @@ export default function StoneDetail() {
               )}
             </div>
           </div>
+          
           <div className={styles.stoneNavigation}>
             <div className={styles.stoneNavLinks}>
               <Link href="/stones" className={styles.backToStones}>
@@ -323,22 +377,19 @@ export default function StoneDetail() {
             </div>
           </div>
         </div>
-      </section>
-      <section className="section">
-        <div className="container">
-          <div className={commonStyles.sectionHeader}>
-            <h2 className={commonStyles.sectionTitle}>Заинтересовались {stone.name.toLowerCase()}?</h2>
-            <p className={commonStyles.sectionDescription}>
-              Наши специалисты готовы ответить на все ваши вопросы
-            </p>
+        
+        {similarStones.length > 0 && (
+          <div className={styles.similarStones}>
+            <h2 className={styles.similarTitle}>Похожие камни</h2>
+            <div className={styles.similarGrid}>
+              {similarStones.map((similarStone) => (
+                <StoneCard key={similarStone.id} stone={similarStone} />
+              ))}
+            </div>
           </div>
-          <div style={{ textAlign: 'center' }}>
-            <Link href="/contact" className={commonStyles.button + ' ' + commonStyles.buttonPrimary}>
-              Получить консультацию
-            </Link>
-          </div>
-        </div>
-      </section>
+        )}
+      </div>
+      
       {/* Полноразмерное изображение */}
       {showFullImage && (
         <div 
@@ -387,4 +438,7 @@ export default function StoneDetail() {
       )}
     </Layout>
   );
-}
+};
+
+export default StoneDetailPage;
+

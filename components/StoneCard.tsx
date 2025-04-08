@@ -1,28 +1,52 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import styles from '@/styles/Stones.module.css';
 
-interface StoneCardProps {
-  image: string;
-  title: string;
-  description: string;
+interface Stone {
+  id: number;
+  name: string;
+  description: string | null;
+  type?: string | null;
+  price?: string | number | null;
+  image?: string;
+  images?: string[];
+  image_url?: string | null;
 }
 
-const StoneCard = ({ image, title, description }: StoneCardProps) => {
+interface StoneCardProps {
+  stone: Stone;
+}
+
+const StoneCard: React.FC<StoneCardProps> = ({ stone }) => {
   return (
-    <div className="w-[300px] h-[350px] bg-gray-900 rounded-lg overflow-hidden">
-      <div className="relative w-[300px] h-[150px]">
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className="object-cover"
-        />
+    <Link href={`/stones/${stone.id}`} className={styles.similarCard}>
+      <div className={styles.similarImageContainer}>
+        {stone.images && stone.images.length > 0 ? (
+          <Image 
+            src={stone.images[0]} 
+            alt={stone.name}
+            width={200}
+            height={150}
+            className={styles.similarImage}
+          />
+        ) : stone.image_url ? (
+          <Image 
+            src={stone.image_url} 
+            alt={stone.name}
+            width={200}
+            height={150}
+            className={styles.similarImage}
+          />
+        ) : (
+          <div className={styles.noImage}>Нет изображения</div>
+        )}
       </div>
-      <div className="p-4">
-        <h3 className="text-[#F3B942] text-xl font-semibold mb-2">{title}</h3>
-        <p className="text-gray-300 text-sm">{description}</p>
+      <div className={styles.similarContent}>
+        <h3 className={styles.similarName}>{stone.name}</h3>
+        {stone.price && <p className={styles.similarPrice}>{stone.price} ₽/м²</p>}
       </div>
-    </div>
+    </Link>
   );
 };
 

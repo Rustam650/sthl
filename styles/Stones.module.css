@@ -248,18 +248,24 @@
 
 .stoneDetailName {
   font-size: 2.5rem;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.5rem 0;
   color: var(--color-text);
   line-height: 1.2;
   font-weight: 700;
+  display: inline-block;
+  max-width: 100%;
 }
 
 .stoneDetailType {
   font-size: 1.2rem;
   color: var(--color-primary);
-  margin: 0 0 2rem 0;
+  margin: 0 0 1.5rem 0;
   font-weight: 500;
   letter-spacing: 0.02em;
+  display: block;
+  position: static;
+  right: auto;
+  top: auto;
 }
 
 .stoneDetailDescription {
@@ -370,7 +376,11 @@
 .stoneContentColumn {
   display: flex;
   flex-direction: column;
-  padding-right: 0;
+  flex: 1;
+  min-width: 300px;
+  height: auto;
+  position: relative;
+  justify-content: space-between;
 }
 
 .stoneContentHeading {
@@ -382,7 +392,7 @@
 }
 
 .stonePriceBlock {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   padding-top: 0.5rem;
   border-top: 1px solid var(--color-border);
 }
@@ -444,7 +454,8 @@
 .stoneActions {
   display: flex;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: auto;
+  margin-bottom: 1rem;
 }
 
 /* Навигация между камнями */
@@ -585,27 +596,69 @@
 @media (max-width: 768px) {
   .stoneDetailImage {
     height: 300px; /* Уменьшаем высоту изображения */
-    padding: 1rem 1rem 0 1rem; /* Уменьшаем отступы */
+    padding: 0; /* Убираем лишние отступы */
   }
 
   .stoneDetailContent {
     padding: 0 1rem 1rem 1rem; /* Уменьшаем отступы */
   }
 
+  .stoneContentColumn {
+    height: auto;
+    min-height: 350px;
+    padding: 0 1rem;
+  }
+
   /* Настройка отображения заголовка и типа камня в одном ряду */
   .stoneDetailName {
-    font-size: 1.5rem; /* Уменьшаем размер шрифта */
-    display: inline-block;
+    font-size: 1.5rem;
     margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+    max-width: 70%;
   }
 
   .stoneDetailType {
-    display: inline-block;
     font-size: 1rem;
     margin: 0;
-    margin-bottom: 1rem;
-    vertical-align: middle;
+    position: absolute;
+    right: 0;
+    top: 0.3rem;
+    display: inline-block;
+  }
+  
+  /* Стили для иконок качества в мобильной версии */
+  .stoneFeatures {
+    margin: 0.75rem 0 1.25rem;
+    gap: 1.5rem;
+    justify-content: flex-start;
+    padding-left: 0;
+  }
+  
+  .stoneFeatureIcon svg {
+    width: 20px;
+    height: 20px;
+    stroke: #8a8a8a;
+  }
+  
+  .stoneFeatureTitle {
+    font-size: 10px;
+    color: #8a8a8a;
+    margin-top: 2px;
+  }
+  
+  .stoneFeatureText {
+    display: none;
+  }
+
+  /* Характеристики камня в мобильной версии */
+  .stoneCharacteristics {
+    margin: 1rem 0 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .stoneFeatures {
+    margin: 1rem 0;
   }
 
   /* Стили для кнопок */
@@ -615,7 +668,8 @@
     justify-content: space-between;
     flex-wrap: nowrap;
     gap: 0.5rem;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
   .stoneActions > a, 
@@ -629,59 +683,8 @@
     text-align: center;
   }
 
-  /* Скрываем информационный блок div для мобильных устройств */
-  /* div[class*="div"] {
-    display: none;
-  } */
-
-  .stoneProperties {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .similarGrid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .stoneDetailTwoColumn {
-    grid-template-columns: 1fr;
-    gap: 1.5rem; /* Уменьшаем отступ между колонками */
-  }
-
   .imageContainer {
     height: 300px; /* Уменьшаем высоту контейнера изображения */
-  }
-
-  /* Добавляем стили для горизонтального отображения преимуществ */
-  .stoneFeatures {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    margin: 1.5rem 0;
-  }
-
-  .stoneFeatureItem {
-    flex: 0 0 auto;
-    min-width: 80px;
-    max-width: 100px;
-  }
-
-  .stoneFeatureIcon {
-    font-size: 1.5rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .stoneFeatureTitle {
-    font-size: 0.9rem;
-    margin-bottom: 0.1rem;
-  }
-
-  .stoneFeatureText {
-    font-size: 0.8rem;
   }
 }
 
@@ -718,9 +721,9 @@
 /* Добавляем стили для блока преимуществ в конец файла */
 .stoneFeatures {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 2rem;
-  margin: 2rem 0;
+  margin: 1.5rem 0;
 }
 
 .stoneFeatureItem {
@@ -732,28 +735,29 @@
 }
 
 .stoneFeatureIcon {
-  font-size: 2rem;
-  color: var(--color-primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.stoneFeatureIcon svg {
+  stroke: #505050;
 }
 
 .stoneFeatureTitle {
   font-weight: 600;
   margin-bottom: 0.25rem;
-  font-size: 10px;
-  color: #313131;
+  font-size: 12px;
+  color: #505050;
   margin-top: 4px;
 }
 
 .stoneFeatureText {
-  font-size: 0.9rem;
-  color: var(--color-text-light);
+  display: none;
 }
 
 /* Класс для замены пустых div'ов */
 .spacer {
-  flex: 1;
   min-height: 10px;
+  margin-bottom: 1rem;
 }
 
 /* Добавляем классы для скрытия элементов */
@@ -763,4 +767,27 @@
 
 .hiddenDiv {
   display: none;
+}
+
+.stoneCharacteristics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.stoneProperty {
+  margin-bottom: 0.5rem;
+}
+
+.propertyTitle {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  margin-bottom: 0.25rem;
+}
+
+.propertyValue {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
 }
