@@ -6,7 +6,7 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60,
   },
-  output: 'standalone',
+  output: 'export',
   distDir: '.next',
 }
 
