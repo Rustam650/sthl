@@ -226,10 +226,6 @@ const Layout: React.FC<LayoutProps> = ({
           <i className="fas fa-envelope"></i>
           <span>Контакты</span>
         </Link>
-        <a href="tel:+71234567890" className={styles.tabbarItem}>
-          <i className="fas fa-phone"></i>
-          <span>Звонок</span>
-        </a>
       </div>
     </div>
   );

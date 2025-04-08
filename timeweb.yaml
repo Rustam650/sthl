@@ -2,8 +2,8 @@ name: sthl
 type: nodejs
 nodeVersion: 18
 startCommand: npm start
-buildCommand: npm run build && cp -f out/index.html /out/
-outputDirectory: /out
+buildCommand: npm run build
+outputDirectory: .next
 variables:
   DB_HOST: 147.45.110.29
   DB_PORT: 3306

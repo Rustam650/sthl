@@ -7,7 +7,7 @@ const nextConfig = {
     minimumCacheTTL: 60,
     unoptimized: true,
   },
-  output: 'export',
+  output: 'standalone',
   distDir: '.next',
 }
 
