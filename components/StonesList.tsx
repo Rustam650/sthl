@@ -2,14 +2,14 @@ import React from 'react';
 import StoneCard from './StoneCard';
 
 interface Stone {
-  id: string | number;
+  id: number;
   name: string;
-  description: string;
+  description: string | null;
+  type?: string | null;
+  price?: string | number | null;
   image?: string;
   images?: string[];
-  image_url?: string;
-  price?: string | number;
-  type?: string;
+  image_url?: string | null;
 }
 
 interface StonesListProps {
