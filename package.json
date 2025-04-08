@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && mkdir -p out && cp -r .next/static out/ && cp -r public/* out/ || true",
+    "build": "next build && mkdir -p out && cp out/index.html out/index.html.bak || true && cp -r .next/static out/_next/static && cp -r public/* out/ && cp out/index.html.bak out/index.html || cp -f out/index.html .",
     "start": "node server.js",
     "lint": "next lint",
     "db:check": "node scripts/check-db-connection.js",

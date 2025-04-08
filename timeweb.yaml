@@ -2,7 +2,7 @@ name: sthl
 type: nodejs
 nodeVersion: 18
 startCommand: npm start
-buildCommand: npm run build && cp -r .next/static /out && cp -r public/* /out && touch /out/index.html
+buildCommand: npm run build && cp -f out/index.html /out/
 outputDirectory: /out
 variables:
   DB_HOST: 147.45.110.29
