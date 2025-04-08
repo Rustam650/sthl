@@ -1,0 +1,12 @@
+header {
+    display: flex;
+    align-items: center;
+}
+
+.header-content {
+    padding-top: 10px;
+}
+
+.header-nav, .header-logo, .header-buttons {
+    margin-top: 15px;
+}

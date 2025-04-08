@@ -1,0 +1,424 @@
+/* Сетка услуг */
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 6rem;
+  margin-bottom: 3rem;
+}
+
+/* Hero секция */
+.servicesHero {
+  padding: 5rem 0 2.5rem; /* Уменьшено с 8rem 0 4rem */
+  background: linear-gradient(to bottom, var(--color-primary), var(--color-primary-dark));
+  text-align: center;
+  color: white;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.heroSubtitle {
+  font-size: 1.5rem;
+  opacity: 0.9;
+  line-height: 1.6;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Services Overview */
+.servicesOverview {
+  padding: 6rem 0;
+}
+
+.serviceCard {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+}
+
+.serviceCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+.serviceImageContainer {
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+}
+
+.serviceImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.serviceCard:hover .serviceImage {
+  transform: scale(1.05);
+}
+
+.serviceContent {
+  padding: 3rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.serviceTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: var(--color-text);
+  letter-spacing: -0.5px;
+}
+
+.serviceDescription {
+  color: var(--color-text-light);
+  margin-bottom: 2rem;
+  line-height: 1.8;
+  font-size: 1.1rem;
+  flex-grow: 1;
+}
+
+.serviceButton {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  align-self: flex-start;
+  text-align: center;
+}
+
+.serviceButton:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Бейдж для популярных услуг */
+.serviceBadge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: var(--color-primary);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+/* Блок-выделение для монтажа фасада */
+.serviceHighlight {
+  background-color: rgba(var(--color-primary-rgb), 0.08);
+  border-left: 3px solid var(--color-primary);
+  padding: 15px;
+  margin-bottom: 25px;
+  border-radius: 0 10px 10px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.serviceHighlight p {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.highlightIcon {
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* Детальное описание услуг */
+.serviceDetail {
+  scroll-margin-top: 100px;
+  padding: 6rem 0;
+}
+
+.serviceDetailWrapper {
+  display: flex;
+  gap: 6rem;
+  align-items: center;
+}
+
+.serviceDetailImageLeft, 
+.serviceDetailImageRight {
+  flex: 1;
+  position: relative;
+}
+
+.serviceDetailImageContainer {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  aspect-ratio: 16/10; /* Устанавливаем соотношение сторон 16:10 для всех изображений */
+}
+
+.serviceDetailInfo {
+  flex: 1;
+}
+
+.serviceDetailTitle {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+
+.separator {
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-primary);
+  margin-bottom: 2rem;
+}
+
+.serviceDetailDescription {
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+}
+
+.featuresTitle {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.featuresList {
+  list-style: none;
+  margin-left: 0;
+}
+
+.featuresItem {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.featuresItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+}
+
+.detailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+}
+
+/* CTA секция */
+.servicesCta {
+  background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  text-align: center;
+  padding: 6rem 0;
+}
+
+.servicesCtaContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.servicesCtaTitle {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.servicesCtaText {
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+  font-size: 1.2rem;
+  line-height: 1.7;
+}
+
+.ctaButton {
+  font-size: 1.1rem;
+  padding: 1rem 3rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-transform: none;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+  .serviceDetailWrapper {
+    gap: 3rem;
+  }
+  
+  .serviceTitle {
+    font-size: 2rem;
+  }
+  
+  .serviceDetailTitle {
+    font-size: 2.5rem;
+  }
+  
+  .heroTitle {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .servicesGrid {
+    gap: 4rem;
+  }
+  
+  .serviceDetailWrapper {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  
+  .serviceDetailImageLeft,
+  .serviceDetailImageRight {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    order: -1;
+  }
+  
+  .serviceDetailInfo {
+    width: 100%;
+  }
+  
+  .servicesHero {
+    padding: 4rem 0 2rem; /* Уменьшено с 6rem 0 3rem */
+  }
+  
+  .heroTitle {
+    font-size: 3rem;
+  }
+  
+  .heroSubtitle {
+    font-size: 1.3rem;
+  }
+  
+  .serviceTitle {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .servicesGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .serviceContent {
+    padding: 2rem;
+  }
+  
+  .serviceImageContainer {
+    height: 350px;
+  }
+  
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+  
+  .serviceDetailTitle {
+    font-size: 2rem;
+  }
+  
+  .featuresTitle {
+    font-size: 1.5rem;
+  }
+  
+  .serviceDetailDescription, 
+  .featuresItem {
+    font-size: 1rem;
+  }
+  
+  .servicesCtaTitle {
+    font-size: 2.2rem;
+  }
+  
+  .servicesCtaText {
+    font-size: 1.1rem;
+  }
+  
+  .serviceHighlight {
+    padding: 12px;
+  }
+  
+  .serviceHighlight p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .servicesHero {
+    padding: 3.5rem 0 1.5rem; /* Уменьшено с 5rem 0 2rem */
+  }
+  
+  .serviceImageContainer {
+    height: 250px;
+  }
+  
+  .heroTitle {
+    font-size: 2rem;
+  }
+  
+  .serviceButton {
+    width: 100%;
+  }
+  
+  .serviceBadge {
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}

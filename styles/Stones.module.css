@@ -1,0 +1,630 @@
+.stoneGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.stoneCard {
+  width: 300px;
+  height: 420px; /* Увеличиваем общую высоту карточки для лучшего соотношения */
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background-alt);
+  cursor: pointer;
+  position: relative;
+  text-decoration: none; /* Добавляем для Link */
+  color: inherit; /* Добавляем для Link */
+  border: 1px solid var(--color-border);
+}
+
+.stoneCard:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.stoneCardActive {
+  border: 2px solid var(--color-primary);
+}
+
+.stoneImageContainer {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  width: 100%; /* Обеспечиваем полную ширину контейнера */
+  flex: 0 0 200px; /* Фиксированная высота, не дающая контейнеру растягиваться */
+}
+
+.stoneImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Важное свойство - обеспечивает заполнение всей области с сохранением пропорций */
+  transition: transform var(--transition-normal);
+}
+
+.stoneCard:hover .stoneImage {
+  transform: scale(1.1);
+}
+
+.stoneContent {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.stoneName {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--color-text);
+}
+
+.stoneType {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.stoneDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin-bottom: auto;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.stonePrice {
+  margin-top: 0.75rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.stoneButton {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  padding: 0;
+  margin-top: 0.75rem;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+}
+
+.stoneButton::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-primary);
+  transition: width var(--transition-fast);
+}
+
+.stoneButton:hover::after {
+  width: 0;
+}
+
+.filtersContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filterButton {
+  background: none;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filterButton:hover {
+  color: var(--color-primary);
+}
+
+.filterActive {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.filterActive:hover {
+  color: white;
+  background-color: var(--color-primary-dark);
+}
+
+/* Детальное описание камня */
+.stoneDetailSection {
+  margin: 3rem 0;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.stoneDetailCard {
+  /* Удаляем фон и тени для более чистого вида */
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  margin-bottom: 3rem;
+  padding: 0;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: white;
+  border: none;
+  box-shadow: var(--shadow-sm);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.closeButton:hover {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+.stoneDetailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.stoneDetailImage {
+  width: 100%;
+  height: 500px; /* Фиксированная высота */
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+}
+
+.imageContainer {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.fullImageContainer {
+  max-width: 80vw;
+  max-height: 80vh;
+  width: 1000px; /* Фиксированная максимальная ширина */
+  height: 700px; /* Фиксированная максимальная высота */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.fullImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.detailImage {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  object-fit: cover;
+}
+
+.stoneDetailContent {
+  padding: 2.5rem 2.5rem 2.5rem 0;
+}
+
+.stoneDetailName {
+  font-size: 2.5rem;
+  margin: 0 0 0.75rem 0;
+  color: var(--color-text);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.stoneDetailType {
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  margin: 0 0 2rem 0;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.stoneDetailDescription {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--color-text);
+  margin-bottom: 2rem;
+  white-space: pre-wrap !important;
+  display: block;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Улучшенные стили для текстовых параграфов */
+.descriptionParagraph {
+  margin-bottom: 1.5rem !important;
+  display: block !important;
+  width: 100%;
+  text-align: left;
+  min-height: 1.2em;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  white-space: normal !important;
+  line-height: 1.8 !important;
+}
+
+.descriptionParagraph:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Резервный вариант для поддержки переносов строк через CSS */
+.stoneDetailDescription > p {
+  white-space: pre-line;
+}
+
+.stoneProperties {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.propertyItem {
+  background-color: var(--color-background);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--color-border);
+}
+
+.propertyLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin-bottom: 0.5rem;
+}
+
+.propertyValue {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.applicationsTitle {
+  font-size: var(--font-size-lg);
+  margin-bottom: 1rem;
+}
+
+.applicationsList {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.applicationItem {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.applicationItem::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+/* Двухколоночный макет для страницы деталей камня */
+.stoneDetailTwoColumn {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 3rem;
+}
+
+.stoneImageColumn {
+  padding: 0;
+}
+
+.mainImage {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.stoneContentColumn {
+  display: flex;
+  flex-direction: column;
+  padding-right: 0;
+}
+
+.stoneContentHeading {
+  font-size: 1.4rem;
+  margin: 0 0 1rem 0;
+  color: var(--color-text);
+  position: relative;
+  font-weight: 600;
+}
+
+.stonePriceBlock {
+  margin-bottom: 2.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.stonePriceValue {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.noDetailImage {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background-alt);
+  border-radius: 8px;
+  color: var(--color-text-light);
+}
+
+/* Секция на всю ширину для описания */
+.stoneFullWidthSection {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+  width: 100%;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Добавим стили для загрузчика */
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--color-background-alt);
+  border-top: 5px solid var(--color-primary);
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Стили для действий с камнем */
+.stoneActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Навигация между камнями */
+.stoneNavigation {
+  margin-top: 2rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.5rem;
+}
+
+.stoneNavLinks {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stoneNavPrev,
+.stoneNavNext {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: var(--color-text);
+  transition: color var(--transition-fast);
+}
+
+.stoneNavPrev:hover,
+.stoneNavNext:hover {
+  color: var(--color-primary);
+}
+
+.navArrow {
+  font-size: 1.25rem;
+  margin: 0 0.5rem;
+}
+
+.backToStones {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.backToStones:before {
+  content: '←';
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.backToStones:hover {
+  opacity: 0.8;
+}
+
+.backToStones:hover:before {
+  transform: translateX(-3px);
+}
+
+.similarStones {
+  margin-top: 4rem;
+}
+
+.similarTitle {
+  font-size: var(--font-size-2xl);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.similarGrid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.similarCard {
+  width: 200px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  background-color: var(--color-background-alt);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--color-border);
+}
+
+.similarCard:hover {
+  transform: translateY(-10px);
+  border-color: var(--color-primary);
+}
+
+.similarImageContainer {
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+
+.similarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.similarCard:hover .similarImage {
+  transform: scale(1.1);
+}
+
+.similarContent {
+  padding: 1rem;
+}
+
+.similarName {
+  font-size: var(--font-size-base);
+  margin-bottom: 0.5rem;
+}
+
+.similarPrice {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin: 0;
+}
+
+@media (max-width: 992px) {
+  .stoneDetailGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .stoneDetailTwoColumn {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .stoneImageColumn {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .stoneDetailImage {
+    padding: 2rem 2rem 0 2rem;
+  }
+
+  .stoneDetailContent {
+    padding: 0 2rem 2rem 2rem;
+  }
+
+  .stoneProperties {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stoneActions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .similarGrid {
+    flex-direction: column;
+  }
+
+  .stoneDetailTwoColumn {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .stoneActions {
+    flex-direction: column;
+  }
+
+  .stoneDetailName {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stoneProperties {
+    grid-template-columns: 1fr;
+  }
+
+  .similarCard {
+    width: 100%;
+    max-width: 300px;
+  }
+}

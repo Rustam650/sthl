@@ -1,0 +1,573 @@
+.layoutWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Шапка сайта */
+.header {
+  height: var(--header-height);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+}
+
+.headerScrolled {
+  height: 60px;
+  background-color: rgba(29, 29, 29, 0.95);
+  border-bottom: 1px solid var(--color-primary);
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0.75rem 0; /* Увеличен отступ сверху и снизу */
+}
+
+/* Лого */
+.logo {
+  display: flex;
+  align-items: center;
+  z-index: 110;
+  margin-top: 5px;
+}
+
+.logoImage {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  transition: all var(--transition-normal);
+}
+
+/* Убираем или комментируем неиспользуемые стили для текстового логотипа */
+/* 
+.logoIcon {
+  margin-right: 8px;
+  font-size: 1.4em;
+  color: var(--color-background);
+}
+
+.logoText {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-background);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+*/
+
+.headerScrolled .logo .logoImage {
+  filter: brightness(1); /* Сброс любых фильтров для второго логотипа */
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  height: 100%;
+  margin-top: 10px; /* Добавлен отступ сверху */
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #333333; /* Тёмно-серый цвет для неактивных ссылок */
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color var(--transition-fast);
+  height: 100%;
+}
+
+.navLink i {
+  margin-right: 0.5rem;
+  font-size: 1.1em;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #333333; /* Тёмно-серый цвет для подчеркивания */
+  transition: width var(--transition-normal);
+}
+
+.headerScrolled .navLink {
+  color: #FFFFFF; /* Белый цвет для неактивных ссылок при прокрутке */
+}
+
+.headerScrolled .navLink::after {
+  background-color: #FFFFFF; /* Белый цвет для подчеркивания при прокрутке */
+}
+
+/* Стиль при наведении */
+.navLink:hover {
+  color: #1D1D1D; /* Почти чёрный цвет при наведении */
+}
+
+/* Подчеркивание при наведении */
+.navLink:hover::after {
+  width: 100%; /* Включаем подчеркивание при наведении */
+}
+
+.headerScrolled .navLink:hover {
+  color: #F3B942; /* Желтый цвет при наведении в состоянии прокрутки */
+}
+
+/* Активный пункт меню */
+.navLinkActive {
+  font-weight: 700;
+  color: #1D1D1D; /* Почти чёрный для активного пункта */
+}
+
+/* Подчеркивание для активного пункта */
+.navLinkActive::after {
+  width: 100%; /* Показываем подчеркивание для активного пункта */
+}
+
+.headerScrolled .navLinkActive {
+  color: #F3B942; /* Желтый цвет для активного пункта при прокрутке */
+}
+
+.navContact {
+  display: none;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Добавлено для лучшего центрирования */
+  gap: 1.5rem;
+  height: 100%; /* Полная высота для лучшего центрирования */
+  margin-top: 10px; /* Добавлен отступ сверху */
+}
+
+.headerPhone {
+  display: none; /* Изменено с flex на none, чтобы скрыть кнопку звонка */
+}
+
+.headerScrolled .headerPhone {
+  color: var(--color-primary);
+}
+
+.headerPhone i {
+  margin-right: 0.5rem;
+  font-size: 1.2em;
+}
+
+.headerPhone:hover {
+  color: var(--color-text-light);
+}
+
+.mobileMenuToggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 110;
+}
+
+.mobileMenuToggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: var(--color-background);
+  border-radius: 3px;
+  transition: all var(--transition-fast);
+}
+
+.headerScrolled .mobileMenuToggle span {
+  background-color: var(--color-primary);
+}
+
+.mobileMenuActive span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.mobileMenuActive span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobileMenuActive span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Основной контент */
+.main {
+  flex: 1;
+  margin-top: var(--header-height);
+  padding-bottom: 2rem;
+}
+
+/* Футер */
+.footer {
+  background-color: var(--color-background-alt);
+  padding: 4rem 0 2rem;
+  position: relative;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.footerLogo {
+  max-width: 300px;
+}
+
+.footerLogoImage {
+  height: 50px;
+  width: auto;
+  margin-bottom: 1rem;
+}
+
+.footerTagline {
+  color: #7f8c8d;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+
+.footerLinks {
+  display: flex;
+  gap: 3rem;
+}
+
+.footerLinkTitle {
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  color: var(--color-primary);
+}
+
+.footerLinkList {
+  list-style: none;
+}
+
+.footerLinkList li {
+  margin-bottom: 0.75rem;
+}
+
+.footerLinkList a {
+  color: #7f8c8d;
+  font-size: 0.875rem;
+  transition: color 0.15s ease;
+}
+
+.footerLinkList a:hover {
+  color: #3498db;
+}
+
+.footerBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  border-top: 1px solid #ecf0f1;
+}
+
+.copyright {
+  font-size: 0.875rem;
+  color: #7f8c8d;
+  margin-bottom: 0;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.socialLink {
+  font-size: 0.875rem;
+  color: #7f8c8d;
+}
+
+/* Дополнения для футера */
+.footerDescription {
+  color: var(--color-text-light);
+  margin-top: 1rem;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.footerSocial {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.socialIcon {
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-background);
+  font-size: 1.25rem;
+  transition: all var(--transition-fast);
+}
+
+.socialIcon:hover {
+  transform: translateY(-5px);
+  background-color: var(--color-primary-dark);
+}
+
+/* Обновленные стили для контактов в футере */
+.footerContactList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-light);
+  font-size: var(--font-size-sm);
+}
+
+.contactItem i {
+  width: 20px;
+  margin-right: 0.75rem;
+  color: var(--color-primary);
+}
+
+.contactItem a {
+  color: var(--color-text-light);
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+
+.contactItem a:hover {
+  color: var(--color-primary);
+}
+
+.footerContactList {
+  list-style: none;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-light);
+  font-size: var(--font-size-sm);
+}
+
+.contactItem i {
+  width: 20px;
+  margin-right: 0.75rem;
+  color: var(--color-primary);
+}
+
+.contactItem a {
+  color: var(--color-text-light);
+  transition: color var(--transition-fast);
+}
+
+.contactItem a:hover {
+  color: var(--color-primary);
+}
+
+/* Мобильный тапбар */
+.mobileTabbar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(29, 29, 29, 0.95);
+  border-top: 1px solid var(--color-primary);
+  height: 60px;
+  z-index: 90;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.tabbarItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+  font-size: 10px;
+  text-decoration: none;
+  width: 20%;
+  height: 100%;
+  transition: color var(--transition-fast);
+}
+
+.tabbarItem i {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.tabbarItem:hover {
+  color: var(--color-primary); /* Меняем цвет при наведении на желтый */
+}
+
+.tabbarItemActive {
+  color: var(--color-primary); /* Желтый цвет для активного пункта мобильного меню */
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+  .footerContent {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  
+  .footerLogo {
+    max-width: 100%;
+  }
+
+  .headerPhone span {
+    display: none;
+  }
+  
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: 300px;
+    background-color: var(--color-background-alt);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 80px 2rem 2rem;
+    gap: 1.5rem;
+    transition: right var(--transition-normal);
+    z-index: 90;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .navOpen {
+    right: 0;
+  }
+  
+  .navLink {
+    font-size: var(--font-size-base);
+    width: 100%;
+    color: #FFFFFF; /* Белый цвет для ссылок в мобильном меню */
+    padding: 0.75rem 0;
+  }
+  
+  .navLink::after {
+    background-color: var(--color-primary);
+  }
+  
+  .navLink:hover {
+    color: var(--color-primary); /* Желтый цвет при наведении в мобильном меню */
+  }
+  
+  .navContact {
+    display: block;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+    width: 100%;
+  }
+  
+  .navPhone {
+    display: none; /* Скрываем телефон в мобильном меню */
+  }
+  
+  .mobileMenuToggle {
+    display: flex;
+  }
+
+  .navOpen .navLinkActive {
+    color: var(--color-primary) !important; /* Желтый цвет для активной ссылки в мобильном меню */
+  }
+  
+  .navOpen .navLinkActive i,
+  .navOpen .navLinkActive span {
+    color: var(--color-primary) !important; /* Желтый цвет для иконки и текста */
+  }
+
+  .logoImage, .footerLogoImage {
+    height: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footerLinks {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  
+  .footerLinkColumn {
+    flex-basis: calc(50% - 1rem);
+  }
+  
+  .footerBottom {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .main {
+    padding-bottom: 60px;
+  }
+  
+  .mobileTabbar {
+    display: flex;
+  }
+
+  .footerLogoImage {
+    height: 40px;
+    margin: 0 auto 1rem;
+  }
+  
+  .footerLogo {
+    text-align: center;
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .nav {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .footerLinks {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .footerLinkColumn {
+    flex-basis: 100%;
+  }
+}
